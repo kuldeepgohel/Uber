@@ -23,4 +23,26 @@
 - - `lastname` (string): The user's last name.
 - - `email` (string): The user's email address.
 - - `password` (string): The user's password.
--
+# /users/login Endpoint Documentation
+
+## Description
+The `/users/login` endpoint is responsible for authenticating a user and generating an authentication token. It performs the following steps:
+
+- Validates the request body using the `express-validator` library. If there are any validation errors, it returns a 400 Bad Request response with the errors.
+- Extracts the `email` and `password` from the request body.
+- Finds the user in the system using the `userService.findUserByEmail` function.
+- Compares the provided password with the hashed password stored in the user object using the `userModel.comparePassword` function.
+- If the passwords match, it generates an authentication token for the user using the `user.generateAuthToken` function.
+- Returns a 200 OK response with the generated token and the user object.
+
+## Status Codes
+- 200 OK: The user was successfully authenticated.
+- 400 Bad Request: There were validation errors in the request body.
+- 401 Unauthorized: The provided email or password was incorrect.
+- 500 Internal Server Error: An error occurred while processing the request.
+
+## Request Data
+The `/users/login` endpoint expects the following data in the request body:
+- `email` (string): The user's email address.
+- `password` (string): The user's password.
+
